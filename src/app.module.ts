@@ -1,10 +1,25 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { ModulesModule } from './modules/modules.module';
+import { LoggerMiddleware } from './middlware/logger.middleware';
+import { AuthCheckMiddleware } from './middlware/unauthorized.middleware';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { RATE_LIMIT, RATE_TTL } from '@env';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ThrottlerModule.forRoot({
+      ttl: RATE_TTL,
+      limit: RATE_LIMIT
+    }),
+    ModulesModule,
+  ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    // consumer.apply(AuthCheckMiddleware).forRoutes('*');
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+    // consumer.apply(RetryMiddleware).forRoutes('*');
+    // consumer.apply(ForwardedHeadersMiddleware).forRoutes('*');
+    // consumer.apply(ThrottleMiddleware).forRoutes('*');
+  }
+}

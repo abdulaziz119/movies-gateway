@@ -1,0 +1,23 @@
+services:
+  movies-gateway-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: movies-gateway-nest
+    restart: on-failure
+    volumes:
+      - ./src:/app/src
+    env_file:
+      - .env
+    ports:
+      - '3000:3000'
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_USER: dev_user
+      POSTGRES_PASSWORD: dev_pass
+      POSTGRES_DB: services
+    ports:
+      - "5433:5432"
