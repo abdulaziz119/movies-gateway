@@ -7,7 +7,6 @@ export class ForwardedHeadersMiddleware implements NestMiddleware {
     const clientIp =
       req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     req.headers['x-forwarded-for'] = clientIp;
-    // console.log(req.headers, 'req.headers');
     console.log(clientIp, 'clientIp');
     next();
   }

@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import { RATE_LIMIT, RATE_TTL } from '../env';
+import { RATE_LIMIT, RATE_TTL } from '@env';
 
 const IP_THROTTLE_LIMIT = RATE_LIMIT; // IP manzili uchun chegaralash limiti
 const IP_THROTTLE_INTERVAL = RATE_TTL * 1000; // Chegaralashning davomiyligi (60 sekund)

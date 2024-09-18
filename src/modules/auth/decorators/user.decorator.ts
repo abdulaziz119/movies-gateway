@@ -3,10 +3,31 @@ import { JwtService } from '@nestjs/jwt';
 
 export const User = createParamDecorator((data: any, ctx: ExecutionContext) => {
   const request = ctx.switchToHttp().getRequest();
+  const jwtService = new JwtService();
   const token = request.headers.authorization?.split(' ')[1];
-  console.log(token, 'token');
-  return request;
+  if (token) {
+    const decodedToken = jwtService.decode(token);
+    if (decodedToken) {
+      request.user = decodedToken;
+    }
+  }
+  return request.user;
 });
+
+export const GameUserId = createParamDecorator(
+  (data: any, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest();
+    const jwtService = new JwtService();
+    const token = request.headers.authorization?.split(' ')[1];
+    if (token) {
+      const decodedToken = jwtService.decode(token);
+      if (decodedToken) {
+        request.user = parseInt(decodedToken['id']);
+      }
+    }
+    return request.user;
+  },
+);
 
 export const Guest = createParamDecorator(
   (data: any, ctx: ExecutionContext) => {
@@ -15,11 +36,26 @@ export const Guest = createParamDecorator(
     const token = request.headers.authorization?.split(' ')[1];
     if (token) {
       const decodedToken = jwtService.decode(token);
-      // if (decodedToken) {
-      //   request.guest = decodedToken["type"] === "guest" ? "guest" : "user";
-      // }
+      if (decodedToken) {
+        request.guest = decodedToken['type'] === 'guest' ? 'guest' : 'user';
+      }
     }
-    return request;
+    return request.guest;
+  },
+);
+
+export const Merchant = createParamDecorator(
+  (data: any, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest();
+    const jwtService = new JwtService();
+    const token = request.headers.authorization?.split(' ')[1];
+    if (token) {
+      const decodedToken = jwtService.decode(token);
+      if (decodedToken) {
+        request.merchant_id = decodedToken['merchant_id'];
+      }
+    }
+    return request.merchant_id;
   },
 );
 

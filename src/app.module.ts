@@ -1,7 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ModulesModule } from './modules/modules.module';
 import { LoggerMiddleware } from './middlware/logger.middleware';
-import { AuthCheckMiddleware } from './middlware/unauthorized.middleware';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { RATE_LIMIT, RATE_TTL } from '@env';
 
