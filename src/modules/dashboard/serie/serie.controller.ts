@@ -18,37 +18,36 @@ import { ErrorResourceDto } from '../../../utils/dto/error.dto';
 import { User } from '../../auth/decorators/user.decorator';
 import { ParamIdNumberDto } from '../../../utils/dto/params.dto';
 import { PaginateParamsDto } from '../../../utils/dto/paginate.dto';
-import { MovieService } from './movie.service';
+import { SerieService } from './serie.service';
 import {
-  MovieCreateBodyDto,
-  MovieCreateResDto,
-  MovieFindAllResDto,
-  MovieFindOneResDto,
-  MovieFindQueryBodyDto,
-  MovieGenreGetAllResDto,
-} from './dto/movie.dto';
+  SenseFindOneResDto,
+  SerieCreateBodyDto,
+  SerieCreateResDto,
+  SerieFindAllResDto, SerieUpdateBodyDto,
+} from './dto/serie.dto';
 
 @ApiBearerAuth()
-@ApiTags('Movie')
-@Controller({ path: '/movie', version: '2' })
-export class MovieController {
-  constructor(private readonly movieService: MovieService) {}
+@ApiTags('Serie')
+@Controller({ path: '/serie', version: '2' })
+export class SerieController {
+  constructor(private readonly roleService: SerieService) {}
 
-  @ApiResponse({ status: 201, type: MovieCreateResDto })
+  @ApiResponse({ status: 201, type: SerieCreateResDto })
   @HttpCode(201)
   @ApiBadRequestResponse({
     status: 403,
     type: ErrorResourceDto,
   })
   @Post('/create')
-  create(@User() user, @Body() payload: MovieCreateBodyDto) {
-    if (user.movies.create === false) {
+  create(@User() user, @Body() payload: SerieCreateBodyDto) {
+    console.log(user.series);
+    if (user.series.create === false) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return this.movieService.create(payload);
+    return this.roleService.create(payload);
   }
 
-  @ApiResponse({ status: 200, type: MovieFindOneResDto })
+  @ApiResponse({ status: 200, type: SenseFindOneResDto })
   @HttpCode(200)
   @ApiBadRequestResponse({
     status: 403,
@@ -61,13 +60,13 @@ export class MovieController {
   })
   @Post('/findOne')
   findOne(@Headers() headers, @User() user, @Body() payload: ParamIdNumberDto) {
-    if (user.movies.getOne === false) {
+    if (user.series.getOne === false) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return this.movieService.findOne(payload, headers);
+    return this.roleService.findOne(payload, headers);
   }
 
-  @ApiResponse({ status: 200, type: MovieFindAllResDto })
+  @ApiResponse({ status: 200, type: SerieFindAllResDto })
   @HttpCode(200)
   @ApiBadRequestResponse({
     status: 403,
@@ -84,10 +83,10 @@ export class MovieController {
     @User() user,
     @Body() payload: PaginateParamsDto,
   ) {
-    if (user.movies.getAll === false) {
+    if (user.series.getAll === false) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return this.movieService.findAll(payload, headers);
+    return this.roleService.findAll(payload, headers);
   }
 
   @ApiResponse({ status: 204, description: 'no content response' })
@@ -98,33 +97,23 @@ export class MovieController {
   })
   @Post('/remove')
   delete(@User() user, @Body() payload: ParamIdNumberDto) {
-    if (user.moviess.delete === false) {
+    if (user.series.delete === false) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return this.movieService.delete(payload);
+    return this.roleService.delete(payload);
   }
 
-  @ApiResponse({ status: 200, type: MovieFindAllResDto })
+  @ApiResponse({ status: 200, type: SenseFindOneResDto })
   @HttpCode(200)
   @ApiBadRequestResponse({
     status: 403,
     type: ErrorResourceDto,
   })
-  @Post('/findQuery')
-  findQuery(@User() user, @Body() payload: MovieFindQueryBodyDto) {
-    if (user.movies.getAll === false) {
+  @Post('/update')
+  update(@User() user, @Body() payload: SerieUpdateBodyDto) {;
+    if (user.series.update === false) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return this.movieService.findQuery(payload);
-  }
-
-  @ApiResponse({ status: 200, type: MovieGenreGetAllResDto })
-  @HttpCode(200)
-  @Post('/genreGetAll')
-  genreGetAll(@User() user) {
-    if (user.movies.getAll === false) {
-      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
-    }
-    return this.movieService.genreGetAll();
+    return this.roleService.update(payload);
   }
 }

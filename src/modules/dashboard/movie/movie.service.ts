@@ -5,7 +5,8 @@ import { ParamIdNumberDto } from '../../../utils/dto/params.dto';
 import {
   MovieCreateBodyDto,
   MovieFindAllResDto,
-  MovieFindOneResDto, MovieGenreGetAllResDto,
+  MovieFindOneResDto,
+  MovieGenreGetAllResDto,
 } from './dto/movie.dto';
 
 @Injectable()
@@ -19,14 +20,22 @@ export class MovieService {
     return this.axiosService.sendRequest<MovieCreateBodyDto>(url, payload);
   }
 
-  findOne(payload,headers) {
+  findOne(payload, headers) {
     const url = `${this.base_url}/findOne/${payload.id}`;
-    return this.axiosService.sendGetAuthRequest<MovieFindOneResDto>(url, payload,headers);
+    return this.axiosService.sendGetAuthRequest<MovieFindOneResDto>(
+      url,
+      payload,
+      headers,
+    );
   }
 
-  findAll(payload,headers) {
+  findAll(payload, headers) {
     const url = `${this.base_url}/findAll`;
-    return this.axiosService.sendGetAuthRequest<MovieFindAllResDto>(url, payload,headers);
+    return this.axiosService.sendGetAuthRequest<MovieFindAllResDto>(
+      url,
+      payload,
+      headers,
+    );
   }
 
   findQuery(payload) {

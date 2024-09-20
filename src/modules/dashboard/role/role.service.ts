@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { AxiosService } from '../../../services/axios.service';
 import { MOVIES_URL } from '@env';
-import { RoleCreateResDto, RoleFindAllResDto, RoleFindOneResDto } from './dto/role.dto';
+import {
+  RoleCreateResDto,
+  RoleFindAllResDto,
+  RoleFindOneResDto,
+} from './dto/role.dto';
 import { ParamIdNumberDto } from '../../../utils/dto/params.dto';
 
 @Injectable()
