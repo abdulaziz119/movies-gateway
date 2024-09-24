@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { PaginateDto } from '../../../../utils/dto/paginate.dto';
 
-export class FrontendAdvertisingFindOneDto {
+export class BotAdvertisingFindOneDto {
   @ApiProperty({ example: 1 })
   id: number;
 
@@ -25,27 +25,27 @@ export class FrontendAdvertisingFindOneDto {
   deleted_at: string;
 }
 
-export class FrontendAdvertisingFindAllListDto {
+export class BotAdvertisingFindAllListDto {
   @ApiProperty({ type: PaginateDto })
   pagination: PaginateDto;
-  @ApiProperty({ type: FrontendAdvertisingFindOneDto, isArray: true })
-  list: FrontendAdvertisingFindOneDto;
+  @ApiProperty({ type: BotAdvertisingFindOneDto, isArray: true })
+  list: BotAdvertisingFindOneDto;
 }
 
-export class FrontendAdvertisingFindOneResDto {
+export class BotAdvertisingFindOneResDto {
   @ApiProperty({ example: 200 })
   statusCode: number;
   @ApiProperty({ example: 'OK' })
   statusDescription: string;
-  @ApiProperty({ type: FrontendAdvertisingFindOneDto })
-  data: FrontendAdvertisingFindOneDto;
+  @ApiProperty({ type: BotAdvertisingFindOneDto })
+  data: BotAdvertisingFindOneDto;
 }
 
-export class FrontendAdvertisingFindAllResDto {
+export class BotAdvertisingFindAllResDto {
   @ApiProperty({ example: 200 })
   statusCode: number;
   @ApiProperty({ example: 'OK' })
   statusDescription: string;
-  @ApiProperty({ type: FrontendAdvertisingFindAllListDto })
-  data: FrontendAdvertisingFindAllListDto;
+  @ApiProperty({ type: BotAdvertisingFindAllListDto })
+  data: BotAdvertisingFindAllListDto;
 }

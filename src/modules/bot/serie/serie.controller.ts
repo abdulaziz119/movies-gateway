@@ -9,21 +9,21 @@ import {
 import { ErrorResourceDto } from '../../../utils/dto/error.dto';
 import { ParamIdNumberDto } from '../../../utils/dto/params.dto';
 import {
-  FrontendSerieFindAllResDto,
-  FrontendSerieFindOneResDto,
-  FrontendSerieMovieIdBodyDto,
-  FrontendSerieMovieIdResDto,
+  BotSerieFindAllResDto,
+  BotSerieFindOneResDto,
+  BotSerieMovieIdBodyDto,
+  BotSerieMovieIdResDto,
 } from './dto/serie.dto';
-import { FrontendSerieService } from './serie.service';
 import { PaginateParamsDto } from '../../../utils/dto/paginate.dto';
+import { BotSerieService } from './serie.service';
 
 @ApiBearerAuth()
-@ApiTags('Frontend Serie')
-@Controller({ path: '/frontend/serie', version: '2' })
-export class FrontendSerieController {
-  constructor(private readonly serieService: FrontendSerieService) {}
+@ApiTags('Bot Serie')
+@Controller({ path: '/bot/serie', version: '2' })
+export class BotSerieController {
+  constructor(private readonly serieService: BotSerieService) {}
 
-  @ApiResponse({ status: 201, type: FrontendSerieFindAllResDto })
+  @ApiResponse({ status: 201, type: BotSerieFindAllResDto })
   @HttpCode(200)
   @ApiBadRequestResponse({
     status: 403,
@@ -39,7 +39,7 @@ export class FrontendSerieController {
     return this.serieService.findAll(payload, headers);
   }
 
-  @ApiResponse({ status: 200, type: FrontendSerieFindOneResDto })
+  @ApiResponse({ status: 200, type: BotSerieFindOneResDto })
   @HttpCode(200)
   @ApiBadRequestResponse({
     status: 403,
@@ -56,7 +56,7 @@ export class FrontendSerieController {
     return this.serieService.findOne(payload, headers);
   }
 
-  @ApiResponse({ status: 200, type: FrontendSerieMovieIdResDto })
+  @ApiResponse({ status: 200, type: BotSerieMovieIdResDto })
   @HttpCode(200)
   @ApiBadRequestResponse({
     status: 403,
@@ -68,7 +68,7 @@ export class FrontendSerieController {
     example: 'uz',
   })
   @Post('/movieId')
-  movieId(@Body() payload: FrontendSerieMovieIdBodyDto, @Headers() headers) {
+  movieId(@Body() payload: BotSerieMovieIdBodyDto, @Headers() headers) {
     return this.serieService.movieId(payload, headers);
   }
 }
