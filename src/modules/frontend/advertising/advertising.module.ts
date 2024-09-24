@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ServicesModule } from '../../../services/services.module';
-import { AdvertisingController } from './advertising.controller';
-import { AdvertisingService } from './advertising.service';
+import { FrontendAdvertisingController } from './advertising.controller';
+import { FrontendAdvertisingService } from './advertising.service';
 
 @Module({
   imports: [ServicesModule],
-  controllers: [AdvertisingController],
-  providers: [AdvertisingService],
+  controllers: [FrontendAdvertisingController],
+  providers: [FrontendAdvertisingService],
 })
-export class AdvertisingModule {}
+export class FrontendAdvertisingModule {}

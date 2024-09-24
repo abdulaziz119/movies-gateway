@@ -57,16 +57,7 @@ export class AdvertisingFindAllListDto {
   list: AdvertisingFindOneDto;
 }
 
-export class AdvertisingCreateResDto {
-  @ApiProperty({ example: 201 })
-  statusCode: number;
-  @ApiProperty({ example: 'Created' })
-  statusDescription: string;
-  @ApiProperty({ type: AdvertisingCreateDto })
-  data: AdvertisingCreateDto;
-}
-
-export class AdvertisingFindOneResDto {
+export class FrontendAdvertisingFindOneResDto {
   @ApiProperty({ example: 200 })
   statusCode: number;
   @ApiProperty({ example: 'OK' })
@@ -75,7 +66,7 @@ export class AdvertisingFindOneResDto {
   data: AdvertisingFindOneDto;
 }
 
-export class AdvertisingFindAllResDto {
+export class FrontendAdvertisingFindAllResDto {
   @ApiProperty({ example: 200 })
   statusCode: number;
   @ApiProperty({ example: 'OK' })

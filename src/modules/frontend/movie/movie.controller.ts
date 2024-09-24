@@ -18,8 +18,8 @@ import {
 import { FrontendMovieService } from './movie.service';
 
 @ApiBearerAuth()
-@ApiTags('Movie Frontend')
-@Controller({ path: 'frontend/movie', version: '2' })
+@ApiTags('Frontend Movie')
+@Controller({ path: '/frontend/movie', version: '2' })
 export class FrontendMovieController {
   constructor(private readonly movieService: FrontendMovieService) {}
 

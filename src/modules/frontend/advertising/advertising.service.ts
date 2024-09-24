@@ -1,26 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { AxiosService } from '../../../services/axios.service';
 import { MOVIES_URL } from '@env';
-import { ParamIdNumberDto } from '../../../utils/dto/params.dto';
 import {
-  AdvertisingCreateResDto,
-  AdvertisingFindOneResDto,
+  FrontendAdvertisingFindAllResDto,
+  FrontendAdvertisingFindOneResDto,
 } from './dto/advertising.dto';
 
 @Injectable()
-export class AdvertisingService {
+export class FrontendAdvertisingService {
   private base_url = MOVIES_URL + '/api/dashboard/advertising';
 
   constructor(private axiosService: AxiosService) {}
 
-  create(payload) {
-    const url = `${this.base_url}/create`;
-    return this.axiosService.sendRequest<AdvertisingCreateResDto>(url, payload);
-  }
-
   findOne(payload, headers) {
     const url = `${this.base_url}/findOne/${payload.id}`;
-    return this.axiosService.sendGetAuthRequest<AdvertisingFindOneResDto>(
+    return this.axiosService.sendGetAuthRequest<FrontendAdvertisingFindOneResDto>(
       url,
       payload,
       headers,
@@ -29,15 +23,10 @@ export class AdvertisingService {
 
   findAll(payload, headers) {
     const url = `${this.base_url}/findAll`;
-    return this.axiosService.sendGetAuthRequest<AdvertisingFindOneResDto>(
+    return this.axiosService.sendGetAuthRequest<FrontendAdvertisingFindAllResDto>(
       url,
       payload,
       headers,
     );
-  }
-
-  delete(payload) {
-    const url = `${this.base_url}/delete/${payload.id}`;
-    return this.axiosService.sendDeleteRequest<ParamIdNumberDto>(url);
   }
 }
