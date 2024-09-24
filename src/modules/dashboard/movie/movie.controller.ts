@@ -1,11 +1,11 @@
 import {
   Body,
   Controller,
+  Headers,
   HttpCode,
   HttpException,
   HttpStatus,
   Post,
-  Headers,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -30,7 +30,7 @@ import {
 
 @ApiBearerAuth()
 @ApiTags('Movie')
-@Controller({ path: '/movie', version: '2' })
+@Controller({ path: 'dashboard/movie', version: '2' })
 export class MovieController {
   constructor(private readonly movieService: MovieService) {}
 

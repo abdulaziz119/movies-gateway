@@ -22,14 +22,13 @@ import {
   AdminRegisterResDto,
 } from './dto/admin.dto';
 import { ErrorResourceDto } from '../../../utils/dto/error.dto';
-import { Auth } from '../../auth/decorators/auth.decorator';
 import { User } from '../../auth/decorators/user.decorator';
 import { ParamIdNumberDto } from '../../../utils/dto/params.dto';
 import { PaginateParamsDto } from '../../../utils/dto/paginate.dto';
 
 @ApiBearerAuth()
 @ApiTags('Admin')
-@Controller({ path: '/admin', version: '2' })
+@Controller({ path: '/dashboard/admin', version: '2' })
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 

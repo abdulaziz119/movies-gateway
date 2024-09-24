@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Headers,
   HttpCode,
   HttpException,
   HttpStatus,
@@ -16,60 +17,49 @@ import { ErrorResourceDto } from '../../../utils/dto/error.dto';
 import { User } from '../../auth/decorators/user.decorator';
 import { ParamIdNumberDto } from '../../../utils/dto/params.dto';
 import { PaginateParamsDto } from '../../../utils/dto/paginate.dto';
-import { RoleService } from './role.service';
+import { StatisticService } from './statistic.service';
 import {
-  RoleCreateBodyDto,
-  RoleCreateResDto,
-  RoleFindAllResDto,
-  RoleFindOneResDto,
-} from './dto/role.dto';
+  StatisticFindAllResDto,
+  StatisticFindOneResDto,
+} from './dto/statistic.dto';
 
 @ApiBearerAuth()
-@ApiTags('Role')
-@Controller({ path: '/dashboard/role', version: '2' })
-export class RoleController {
-  constructor(private readonly roleService: RoleService) {}
+@ApiTags('Statistic')
+@Controller({ path: '/dashboard/statistics', version: '2' })
+export class StatisticController {
+  constructor(private readonly statisticService: StatisticService) {}
 
-  @ApiResponse({ status: 201, type: RoleCreateResDto })
-  @HttpCode(201)
-  @ApiBadRequestResponse({
-    status: 403,
-    type: ErrorResourceDto,
-  })
-  @Post('/create')
-  create(@User() user, @Body() payload: RoleCreateBodyDto) {
-    if (user.roles.create === false) {
-      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
-    }
-    return this.roleService.create(payload);
-  }
-
-  @ApiResponse({ status: 200, type: RoleFindOneResDto })
+  @ApiResponse({ status: 200, type: StatisticFindOneResDto })
   @HttpCode(200)
   @ApiBadRequestResponse({
     status: 403,
+
     type: ErrorResourceDto,
   })
   @Post('/findOne')
-  findOne(@User() user, @Body() payload: ParamIdNumberDto) {
-    if (user.roles.getOne === false) {
+  findOne(@Headers() headers, @User() user, @Body() payload: ParamIdNumberDto) {
+    if (user.statistics.getOne === false) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return this.roleService.findOne(payload);
+    return this.statisticService.findOne(payload, headers);
   }
 
-  @ApiResponse({ status: 200, type: RoleFindAllResDto })
+  @ApiResponse({ status: 200, type: StatisticFindAllResDto })
   @HttpCode(200)
   @ApiBadRequestResponse({
     status: 403,
     type: ErrorResourceDto,
   })
   @Post('/findAll')
-  findAll(@User() user, @Body() payload: PaginateParamsDto) {
-    if (user.roles.getAll === false) {
+  findAll(
+    @Headers() headers,
+    @User() user,
+    @Body() payload: PaginateParamsDto,
+  ) {
+    if (user.statistics.getAll === false) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return this.roleService.findAll(payload);
+    return this.statisticService.findAll(payload, headers);
   }
 
   @ApiResponse({ status: 204, description: 'no content response' })
@@ -80,9 +70,9 @@ export class RoleController {
   })
   @Post('/remove')
   delete(@User() user, @Body() payload: ParamIdNumberDto) {
-    if (user.roles.delete === false) {
+    if (user.statistics.delete === false) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return this.roleService.delete(payload);
+    return this.statisticService.delete(payload);
   }
 }

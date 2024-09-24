@@ -1,6 +1,6 @@
-import {Module} from '@nestjs/common';
-import {HttpModule} from '@nestjs/axios';
-import {AxiosService} from './axios.service';
+import { Module } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
+import { AxiosService } from './axios.service';
 
 const services = [AxiosService];
 
@@ -9,5 +9,4 @@ const services = [AxiosService];
   exports: services,
   providers: services,
 })
-export class ServicesModule {
-}
+export class ServicesModule {}

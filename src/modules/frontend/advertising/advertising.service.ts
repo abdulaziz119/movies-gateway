@@ -3,25 +3,24 @@ import { AxiosService } from '../../../services/axios.service';
 import { MOVIES_URL } from '@env';
 import { ParamIdNumberDto } from '../../../utils/dto/params.dto';
 import {
-  SenseFindOneResDto,
-  SerieCreateResDto,
-  SerieFindAllResDto,
-} from './dto/serie.dto';
+  AdvertisingCreateResDto,
+  AdvertisingFindOneResDto,
+} from './dto/advertising.dto';
 
 @Injectable()
-export class SerieService {
-  private base_url = MOVIES_URL + '/api/dashboard/series';
+export class AdvertisingService {
+  private base_url = MOVIES_URL + '/api/dashboard/advertising';
 
   constructor(private axiosService: AxiosService) {}
 
   create(payload) {
     const url = `${this.base_url}/create`;
-    return this.axiosService.sendRequest<SerieCreateResDto>(url, payload);
+    return this.axiosService.sendRequest<AdvertisingCreateResDto>(url, payload);
   }
 
   findOne(payload, headers) {
     const url = `${this.base_url}/findOne/${payload.id}`;
-    return this.axiosService.sendGetAuthRequest<SenseFindOneResDto>(
+    return this.axiosService.sendGetAuthRequest<AdvertisingFindOneResDto>(
       url,
       payload,
       headers,
@@ -30,7 +29,7 @@ export class SerieService {
 
   findAll(payload, headers) {
     const url = `${this.base_url}/findAll`;
-    return this.axiosService.sendGetAuthRequest<SerieFindAllResDto>(
+    return this.axiosService.sendGetAuthRequest<AdvertisingFindOneResDto>(
       url,
       payload,
       headers,
@@ -40,10 +39,5 @@ export class SerieService {
   delete(payload) {
     const url = `${this.base_url}/delete/${payload.id}`;
     return this.axiosService.sendDeleteRequest<ParamIdNumberDto>(url);
-  }
-
-  update(payload) {
-    const url = `${this.base_url}/update/${payload.id}`;
-    return this.axiosService.sendPutRequest<SerieFindAllResDto>(url, payload);
   }
 }
