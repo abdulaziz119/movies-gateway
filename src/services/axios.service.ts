@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosRequestConfig } from 'axios';
 
 @Injectable()
 export class AxiosService {
@@ -218,5 +218,20 @@ export class AxiosService {
     );
 
     return data;
+  }
+
+  public async getImageRequest<T>(
+    url: string,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
+    const response = await firstValueFrom(
+      this.httpService.get<T>(url, config).pipe(
+        catchError((error: AxiosError) => {
+          console.log(error);
+          throw new HttpException(error.response.data, error.response.status);
+        }),
+      ),
+    );
+    return response.data;
   }
 }

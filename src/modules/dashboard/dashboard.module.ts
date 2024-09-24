@@ -5,6 +5,7 @@ import { MovieModule } from './movie/movie.module';
 import { SerieModule } from './serie/serie.module';
 import { StatisticModule } from './statistic/statistic.module';
 import { AdvertisingModule } from './advertising/advertising.module';
+import { UploadDashboardModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AdvertisingModule } from './advertising/advertising.module';
     SerieModule,
     StatisticModule,
     AdvertisingModule,
+    UploadDashboardModule,
   ],
 })
 export class DashboardModule {}
